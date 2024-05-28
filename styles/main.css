@@ -1,0 +1,32 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#menuBar {
+	background-color: rgb(184, 185, 244);
+	position:sticky;
+	top: 0;
+	width: 90vw;
+	height:100px;
+	display: inline;
+	text-align: center;
+	border-radius: 0px 0px 10px 10px;
+}
+
+h1 {
+	margin-top: 10px;
+	margin-bottom: 0px;
+	background-color: blue;
+	padding: 0px;
+}
+
+.nav-links {
+	background-color: aqua;
+	list-style: none;
+	margin-top: 0px;
+}
+
+.nav-link {
+	display: inline;
+}
+
