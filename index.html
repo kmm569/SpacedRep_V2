@@ -40,7 +40,9 @@
 			<ul class="nav-links">
 				<li class="nav-link"><a href="index.html">Guide</a></li>
 				<li class="nav-link">|</li>
-				<li class="nav-link"><a href="scheduler.html">Schedule Calculator</a></li>
+				<li class="nav-link">
+					<a href="scheduler.html">Schedule Calculator</a>
+				</li>
 			</ul>
 		</div>
 
@@ -70,7 +72,10 @@
 					<li>Continually re-exposes you to information</li>
 					<li>Helps strengthen your memory</li>
 					<li>Trains recall over recognition</li>
-					<li>Spend more time actively studying rather than passively taking in information</li>
+					<li>
+						Spend more time actively studying rather than passively taking in
+						information
+					</li>
 				</ul>
 				<br />
 			</div>
@@ -78,18 +83,52 @@
 				<details>
 					<summary><i>See the math that makes this tool work!</i></summary>
 					<div id="spaced-math">
-						<p>Below is the raw Javascript line that calculates how much time should go between each day:</p>
+						<p>
+							Below is the raw Javascript line that calculates how much time
+							should go between each day:
+						</p>
 						<p><code>const mult = [2.175, 2, 1.825, 1.625, 1.45]</code></p>
-						<p><code>Math.floor( Math.pow( mult[topicDifficulty[i].value - 1], p ))</code></p>
-						<p>While this looks confusing, it can be broken down into an easier to understand math equation. Assume first level of difficulty (1), as well as calculating the first day you should study (p=1).</p>
+						<p>
+							<code
+								>Math.floor( Math.pow( mult[topicDifficulty[i].value - 1], p
+								))</code
+							>
+						</p>
+						<p>
+							While this looks confusing, it can be broken down into an easier
+							to understand math equation. Assume first level of difficulty (1),
+							as well as calculating the first day you should study (p=1).
+						</p>
 						<p>\(Floor( 2.175^1 )\)</p>
-						<p>This equation is telling us that if the topic is easy, we should start studying about 2 days after the first day we learn the topic.</p>
-						<p>Keep in mind that the harder a topic is, the sooner you will begin to review the topic. These values are shown above in the <code>const mult</code>, and are as follows: 2.175, 2, 1.825, 1.625, and 1.45.</p>
-						<p>When first starting to study, these values won't change too much; you will begin to review 1-2 days after you learn the topic. However, once you get closer to the test date, these days will become farther and farther apart.</p>
-						<p>Below is an example demonstrating the difference in days between the fifth study session when calculating an easy topic versus a super hard topic:</p>
+						<p>
+							This equation is telling us that if the topic is easy, we should
+							start studying about 2 days after the first day we learn the
+							topic.
+						</p>
+						<p>
+							Keep in mind that the harder a topic is, the sooner you will begin
+							to review the topic. These values are shown above in the
+							<code>const mult</code>, and are as follows: 2.175, 2, 1.825,
+							1.625, and 1.45.
+						</p>
+						<p>
+							When first starting to study, these values won't change too much;
+							you will begin to review 1-2 days after you learn the topic.
+							However, once you get closer to the test date, these days will
+							become farther and farther apart.
+						</p>
+						<p>
+							Below is an example demonstrating the difference in days between
+							the fifth study session when calculating an easy topic versus a
+							super hard topic:
+						</p>
 						<p>Easy Topic: \(Floor( 2.175^5 ) = 48\) Days from start date</p>
 						<p>Hard Topic: \(Floor( 1.45^5 ) = 6\) Days from start date</p>
-						<p>Keep in mind that with both of these equations, you are only studying 5 times, the only difference being the amount of time between each study session.</p>
+						<p>
+							Keep in mind that with both of these equations, you are only
+							studying 5 times, the only difference being the amount of time
+							between each study session.
+						</p>
 						<!-- <p>The distribution of study days will always look something like this:</p>
 						<p>|-o---o------o--------o----------------o---Test|</p> -->
 					</div>
@@ -102,20 +141,37 @@
 				<ol>
 					<li>Go to the Topic Scheduler page</li>
 					<li>Enter your test date at the top</li>
-					<li>If you would like to use the same year for everything (so that you don&#39;t need to type it in repeatedly), check the box.</li>
+					<li>
+						If you would like to use the same year for everything (so that you
+						don&#39;t need to type it in repeatedly), check the box.
+					</li>
 					<li>Enter the number of topics you need to study.</li>
-					<li>Enter a name for each topic. If you leave the names blank, a number will be assigned.</li>
-					<li>Enter the dates that you would like to start studying each topic. This could be the day you learn the material, or just the day you plan on starting.</li>
-					<li>Finally, rate the difficulty of the topic. The harder a topic is, the more often it should be studied.</li>
+					<li>
+						Enter a name for each topic. If you leave the names blank, a number
+						will be assigned.
+					</li>
+					<li>
+						Enter the dates that you would like to start studying each topic.
+						This could be the day you learn the material, or just the day you
+						plan on starting.
+					</li>
+					<li>
+						Finally, rate the difficulty of the topic. The harder a topic is,
+						the more often it should be studied.
+					</li>
 					<li>Hit calculate!</li>
 				</ol>
-				<p>From here, a list of study dates will come up, along with a calendar to help visualize the study plan. If there is a superscript on a date (and it's highlighted), you can hover over it to see a list of the study topics for that day. The number
-					represents the number of topics to study on that day.<br>At the bottom of the page, you can also export these dates to your calendar, or start the process over.</p>
+				<p>
+					From here, a list of study dates will come up, along with a calendar
+					to help visualize the study plan. If there is a superscript on a date
+					(and it's highlighted), you can hover over it to see a list of the
+					study topics for that day. The number represents the number of topics
+					to study on that day.<br />At the bottom of the page, you can also
+					export these dates to your calendar, or start the process over.
+				</p>
 			</div>
 		</div>
-		<div class="content-box">
-			Insert photo section
-		</div>
+		<div class="content-box">Insert photo section</div>
 		<div class="content-box">
 			<div class="content-sub">
 				<h2>Upcoming features/Future plans</h2>
@@ -129,18 +185,40 @@
 
 		<button class="accent-button"><a href="">Feedback/Bug Reports</a></button>
 		<div id="coffeebutton">
-			<a href="https://www.buymeacoffee.com/gothamstudios"><img src="https://img.buymeacoffee.com/button-api/?text=Help support development&emoji=☕&slug=gothamstudios&button_colour=5F7FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00" /></a>
+			<a href="https://www.buymeacoffee.com/gothamstudios"
+				><img
+					src="https://img.buymeacoffee.com/button-api/?text=Help support development&emoji=☕&slug=gothamstudios&button_colour=5F7FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00"
+			/></a>
 		</div>
 
 		<footer>
 			<div class="footer-links">
 				<ul>
-					<li><a href="mailto:kmusial@gothamstudios.us" target="_blank">Contact</a></li> |
-                	<li><a href="https://github.com/GothamGamer117/SpacedRepetition" target="_blank">Github</a></li> |
-                	<li><a href="https://forms.gle/HKm8mLoDdUts6Y889" target="_blank">Feedback/Bug Report</a></li>
+					<li>
+						<a href="mailto:kmusial@gothamstudios.us" target="_blank"
+							>Contact</a
+						>
+					</li>
+					|
+					<li>
+						<a
+							href="https://github.com/GothamGamer117/SpacedRepetition"
+							target="_blank"
+							>Github</a
+						>
+					</li>
+					|
+					<li>
+						<a href="https://forms.gle/HKm8mLoDdUts6Y889" target="_blank"
+							>Feedback/Bug Report</a
+						>
+					</li>
 				</ul>
 			</div>
-			<p class="copyright">&copy; Copyright 2023 Kaitlyn Musial https://study.gothamstudios.us - v0.8.2</p>
+			<p class="copyright">
+				&copy; Copyright 2023 Kaitlyn Musial https://study.gothamstudios.us -
+				v0.8.2
+			</p>
 		</footer>
 		<script src="./scripts/info.js"></script>
 	</body>
