@@ -1,0 +1,64 @@
+:root {
+	--darkest: rgb(45, 49, 66);
+	--darker: rgb(72, 67, 92);
+	--middle: rgb(128, 143, 135);
+	--light: rgb(175, 208, 191);
+	--lightest: rgb(226, 239, 222);
+	--hover-shadow: rgb(0,0,0);
+	--border-color: rgba(45, 49, 66, 0.4); /* Use DARKEST */
+	--content-box-bkg: rgba(175, 208, 191, 0.5);
+}
+
+body {
+	background-color: var(--lightest);
+	color: var(--darkest);
+}
+
+h1 {
+	color:var(--lightest);
+}
+
+.nav-link {
+	color: var(--lightest);
+}
+
+.nav-link a {
+	color: var(--lightest);
+}
+
+.nav-link a:hover {
+	color: var(--light);
+	text-shadow: 0 0 5px var(--hover-shadow);
+}
+
+#menuBar {
+	background-color: var(--darkest);
+}
+
+.content-box {	
+	border-color: var(--border-color);
+	background-color: var(--content-box-bkg);
+	/* box-shadow: 0 0 15px 7px var(--lightest) inset; */
+}
+
+ol li {
+	border-color: var(--border-color)
+}
+
+#theme {
+	color: var(--lightest)
+}
+
+#theme:hover {
+	background-color: var(--light);
+	color: var(--darkest)
+}
+
+#themeSelect {
+	background-color: var(--content-box-bkg);
+	border-color: var(--darkest);
+}
+
+.popupBox {
+	border-color: var(--darkest);
+}

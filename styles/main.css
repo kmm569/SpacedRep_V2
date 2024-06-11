@@ -1,32 +1,131 @@
+:root {
+	--menu-bar-height: 70px;
+}
+
 body {
 	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	display: block;
+	padding-top: var(--menu-bar-height);
+
+	cursor:default;
 }
 
 #menuBar {
-	background-color: rgb(184, 185, 244);
-	position:sticky;
-	top: 0;
-	width: 90vw;
-	height:100px;
+	position:fixed;
+	top:0;
+	width: 100vw;
+	padding: 0;
+	height: var(--menu-bar-height);
 	display: inline;
 	text-align: center;
-	border-radius: 0px 0px 10px 10px;
+	/* border-radius: 0px 0px 10px 10px; */
+	z-index: 1;
+}
+
+#theme {
+	position: absolute;
+	top: 30%;
+	right:3%;
+	padding: 0;
+	margin: 0;
+	height: 25px;
+	width: 25px;
+	display: inline;
+	background-color: rgba(0,0,0,0);
+	border-style: none;
+	border-radius: 5px;
+}
+
+#theme:hover {
+	cursor:pointer;
 }
 
 h1 {
-	margin-top: 10px;
 	margin-bottom: 0px;
-	background-color: blue;
-	padding: 0px;
+	/* background-color: blue; */
+	position: relative;
+	top: 5px;
+	right: 25%;
+	display: inline;
 }
 
 .nav-links {
-	background-color: aqua;
+	/* background-color: aqua; */
 	list-style: none;
 	margin-top: 0px;
+	margin-bottom: 3px;
 }
 
 .nav-link {
 	display: inline;
+	text-decoration: none;
+	font-size: 20px;
+	padding-left: 5px;
+	padding-right: 5px;
+	/* color: rgba(0,0,0,0) */
 }
 
+.nav-link a {
+	text-decoration: none;
+}
+
+.content-box {
+	position: relative;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border-style: none dashed none dashed;
+	border-width: 3px;
+	border-radius: 35px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 15px 0 15px 0;
+}
+
+.content-sub {
+	margin: 0 auto 0 auto;
+	width: 75%
+}
+
+.content-sub ul {
+	text-align: left;
+	width: 60%;
+	margin: 0 auto 0 auto;
+}
+
+li {
+	list-style-position: inside;
+}
+
+ol li a img {
+	width: 50%;
+	height: auto;
+}
+
+ol li {
+	border-bottom-style: dotted;
+	border-bottom-width: 3px;
+	padding-top: 15px;
+}
+
+.popups {
+	position: relative;
+}
+
+#themeSelect {
+	border-style: solid;
+	border-radius: 5px;
+}
+
+.popupBox {
+	border-radius: 10px;
+	text-align: center;
+	padding: 10px;
+}
+
+#themePopup p {
+	text-decoration:solid;
+	text-decoration-line:underline;
+}

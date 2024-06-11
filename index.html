@@ -25,12 +25,24 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<title>Spaced Repetition</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href="./styles/mobile.css" rel="stylesheet" type="text/css" />
 		<link href="./styles/main.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" id="themeStyle" />
 		<link rel="icon" type="image/x-icon" href="/styles/favicon.ico" />
 	</head>
 	<body>
+		<dialog theme-modal class="popupBox">
+			<div id="themePopup">
+				<p>Theme</p>
+				<select data-theme id="themeSelect" name="theme">
+					<option value="dutchess">Dutchess</option>
+					<option value="cranberry">Cranberry</option>					
+					<option value="fairydusk">Fairydusk</option>
+					<option value="violet">Violet</option>
+				</select>
+			</div>
+	</dialog>
 		<div id="actionButtons">
 			<!-- Add Theme Button Here -->
 		</div>
@@ -39,11 +51,12 @@
 			<br />
 			<ul class="nav-links">
 				<li class="nav-link"><a href="index.html">Guide</a></li>
-				<li class="nav-link">|</li>
+				<li class="nav-link">/</li>
 				<li class="nav-link">
 					<a href="scheduler.html">Schedule Calculator</a>
 				</li>
 			</ul>
+			<button theme-open-modal id="theme"><i class="fa fa-paint-brush"></i></button>
 		</div>
 
 		<h1 class="page-title"></h1>
@@ -60,7 +73,6 @@
 						><a href="https://e-student.org/spaced-repetition/">1</a></sup
 					>
 				</p>
-				<br />
 				<p>
 					The distribution of study days will always look something like this:
 				</p>
@@ -171,7 +183,52 @@
 				</p>
 			</div>
 		</div>
-		<div class="content-box">Insert photo section</div>
+		<div class="content-box">
+			<div class="content-sub">
+				<h2>Pictures, please!</h2>
+        <ol>
+            <li>Go to the Topic Scheduler page<br>
+                <a>
+                    <img src="./images/guide/steps/1.webp"></img>
+                </a>
+            </li>
+            <li>Enter your test date at the top<br>
+                <a>
+                    <img src="./images/guide/steps/2.webp"></img>
+                </a>
+            </li>
+            <li>If you would like to use the same year for everything (so that you don&#39;t need to type it in repeatedly), check the box.</li>
+            <li>Enter the number of topics you need to study.<br>
+                <a>
+                    <img src="./images/guide/steps/3.webp"></img>
+                </a>
+            </li>
+            <li>Enter a name for each topic. If you leave the names blank, a number will be assigned.<br>
+                <a>
+                    <img src="./images/guide/steps/4.webp"></img>
+                </a>
+            </li>
+            <li>Enter the dates that you would like to start studying each topic. This could be the day you learn the material, or just the day you plan on starting.<br>
+                <a>
+                    <img src="./images/guide/steps/5.webp"></img>
+                </a>
+            </li>
+            <li>Finally, rate the difficulty of the topic. The harder a topic is, the more often it should be studied.<br>
+                <a>
+                    <img src="./images/guide/steps/6.webp"></img>
+                </a>
+            </li>
+            <li>Hit calculate!<br>
+                <a>
+                    <img src="./images/guide/steps/7.webp"></img>
+                </a>
+            </li>
+        </ol>
+        <p>From here, a list of study dates will come up, along with a calendar to help visualize the study plan. If there is a superscript on a date (and it&#39;s highlighted), you can hover over it to see a list of the study topics for that day. The number
+            represents the number of topics to study on that day.<br>At the bottom of the page, you can also export these dates to your calendar, or start the process over.</p>
+    </div>
+			</div>
+		</div>
 		<div class="content-box">
 			<div class="content-sub">
 				<h2>Upcoming features/Future plans</h2>
@@ -220,6 +277,6 @@
 				v0.8.2
 			</p>
 		</footer>
-		<script src="./scripts/info.js"></script>
+		<script src="./scripts/themes.js"></script>
 	</body>
 </html>
