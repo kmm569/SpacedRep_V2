@@ -65,3 +65,12 @@ ol li {
 .popupBox {
 	border-color: var(--darkest);
 }
+
+.foot-link {
+	color: var(--darkest)!important
+}
+
+footer {
+	background-color: var(--middle);
+	color: var(--lightest);
+}

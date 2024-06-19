@@ -44,3 +44,12 @@ h1 {
 ol li {
 	border-color: var(--border-color)
 }
+
+.foot-link {
+	color: var(--darkest)!important
+}
+
+footer {
+	background-color: var(--darkest);
+	color: var(--lightest);
+}
