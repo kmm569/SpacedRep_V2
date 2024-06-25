@@ -71,3 +71,7 @@ footer {
 	background-color: var(--darkest);
 	color: var(--lightest);
 }
+
+.styled-label span:after {
+	background-color: var(--darkest);
+}

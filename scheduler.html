@@ -25,8 +25,10 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<title>Spaced Repetition</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link href="./styles/mobile.css" rel="stylesheet" type="text/css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
 		<link href="./styles/main.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" id="themeStyle" />
 		<link rel="icon" type="image/x-icon" href="/styles/favicon.ico" />
@@ -37,12 +39,12 @@
 				<p>Theme</p>
 				<select data-theme id="themeSelect" name="theme">
 					<option value="dutchess">Dutchess</option>
-					<option value="cranberry">Cranberry</option>					
+					<option value="cranberry">Cranberry</option>
 					<option value="scifi">Sci-Fi</option>
 					<option value="violet">Violet</option>
 				</select>
 			</div>
-	</dialog>
+		</dialog>
 		<div id="actionButtons">
 			<!-- Add Theme Button Here -->
 		</div>
@@ -56,21 +58,54 @@
 					<a href="scheduler.html">Schedule Calculator</a>
 				</li>
 			</ul>
-			<button theme-open-modal id="theme"><i class="fa fa-paint-brush"></i></button>
+			<button theme-open-modal id="theme">
+				<i class="fa fa-paint-brush"></i>
+			</button>
 		</div>
 		<div class="content-wrapper">
 			<div class="content">
 				<div class="left-wrap">
+					<h2 class="section-header">Test Information</h2>
 					<div class="content-box wider">
-						<label for="testDate" class="content-title">Test Date</label>
+						<h3 class="content-title">Test Date</h3>
 						<br />
-						<input name="testDate" type="date" class="input-form">
+						<input name="testDate" type="date" class="input-form" />
+						<hr class="cb-div" />
+						<h3 class="content-title">Calculation Style</h3>
+						<label class="styled-label">
+							<label class="radio-label" for="calcType">Difficulty</label>
+							<br />
+							<input
+								class="styled-radio"
+								id="calcType"
+								type="radio"
+								name="calcType"
+								value="diff"	\
+							/>
+							<span></span>
+						</label>
+
+						<label class="styled-label">
+							<label class="radio-label" for="calcType">Study Days</label>
+							<br />
+							<input
+								class="styled-radio"
+								id="calcType"
+								type="radio"
+								name="calcType"
+								value="days"
+							/>
+							<span></span>
+						</label>
+						<hr class="cb-div" />
+						<h3 class="content-title">Topics</h3>
+						<label for="topics">Number of Test Topics: </label>
+						<input name="topics" class="input-counter" max="10" min="1" type="number">
 					</div>
 				</div>
 				<div class="right-wrap">
-					<div class="content-box wider">
-						WOO RESULTS  HOPEUFLLY WOOO
-					</div>
+					<h2 class="section-header">Results</h2>
+					<div class="content-box wider">WOO RESULTS HOPEUFLLY WOOO</div>
 				</div>
 			</div>
 		</div>
@@ -104,5 +139,6 @@
 			</p>
 		</footer>
 		<script src="./scripts/themes.js"></script>
-		</body>
-		</html>
+		<script src="./scripts/schedule.js"></script>
+	</body>
+</html>
