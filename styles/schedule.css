@@ -1,0 +1,192 @@
+.left-wrap {
+    width: 50vw;
+  }
+
+  .right-wrap {
+    width: 50vw;
+  }
+
+  .wider {
+    width: 95%;
+  }
+
+  /* =-=-=-=-=-=-=-=-=-=-=- */
+/* Custom Radio Buttons */
+
+.styled-radio {
+    display: none;
+  }
+  
+  .styled-label {
+    display: inline-block;
+    padding: 5px 10px;
+    cursor: pointer;
+    /* This is the element that senses the clicks */
+  }
+  
+  .styled-label span {
+    position: relative;
+    line-height: 22px;
+  }
+  
+  .styled-label span:before,
+  .styled-label span:after {
+    content: "";
+  }
+  
+  .styled-label span:before {
+    border: 1px solid #222021;
+    width: 20px;
+    height: 20px;
+    /* margin-right: 10px; */
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .styled-label span:after {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    transition: 300ms;
+    opacity: 0;
+  }
+  
+  .styled-label input:checked + span:after {
+    opacity: 1;
+  }
+  
+  /* =-=-=-=-=-=-=-=-=-=-=- */
+
+  .cb-div {
+    width: 60%;
+  }
+  
+  .soft-div {
+    border-style: dotted;
+    opacity: 20%;
+    width: 40%;
+  }
+
+  /* TABLE */
+  
+  #topic-info {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    width: 100%;
+  }
+  
+  table {
+    margin: 15px auto 0 auto;
+    width: 75%;
+  }
+  
+  #topic-table td input {
+    width: 95%;
+  }
+
+  #topic-table tr {
+    width: 100%;
+  }
+  
+  #topic-table td {
+    width: 33%;
+  }
+  
+  .topic-row-date {
+    width: 60% !important;
+  }
+
+  /* =-=-=-=-=-=-=-=-= */
+  
+  input[type="text"],
+  input[type="date"],
+  input[type="number"] {
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 2px;
+    text-align: center;
+  }
+  
+  /* DIFFICULTY SLIDER */
+  .diff {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    background-image: linear-gradient(to right, green, yellow, red);
+    outline: none;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+  }
+  
+  .diff::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    background: var(--sliderImage);
+    background-position: center right;
+    background-size: contain;
+    cursor: pointer;
+  }
+  
+  .diff::-moz-range-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    background: var(--sliderImage);
+    background-position: center right;
+    cursor: pointer;
+  }
+
+  /* STUDY DAY SLIDER */
+  .days {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    outline: none;
+    background-color: green;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+  }
+
+  .days::-webkit-scrollbar-track {
+
+  }
+  
+  .days::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 0;
+    background-color: red;
+    cursor: pointer;
+  }
+
+  .days::-webkit-slider-thumb::before {
+    content: var(--thumbContent);
+    color: white;
+  }
+  
+  .days::-moz-range-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    cursor: pointer;
+  }
+  
+  /*  djfhdkjsfhksjdhf */
+
+  .submit {
+    font-size: 18px;
+    padding: 5px 10px 5px 10px;
+  }

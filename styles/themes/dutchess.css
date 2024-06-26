@@ -78,3 +78,14 @@ footer {
 .styled-label span:after {
 	background-color: var(--middle);
 }
+
+button {
+  color: var(--lightest);
+  background-color: var(--middle);
+}
+
+button:hover {
+	color: var(--darkest);
+	background-color: var(--light);
+	cursor: pointer;
+}

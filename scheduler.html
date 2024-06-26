@@ -30,6 +30,7 @@
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 		/>
 		<link href="./styles/main.css" rel="stylesheet" type="text/css" />
+		<link href="./styles/schedule.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" id="themeStyle" />
 		<link rel="icon" type="image/x-icon" href="/styles/favicon.ico" />
 	</head>
@@ -80,7 +81,8 @@
 								id="calcType"
 								type="radio"
 								name="calcType"
-								value="diff"	\
+								value="diff"
+								checked
 							/>
 							<span></span>
 						</label>
@@ -100,7 +102,25 @@
 						<hr class="cb-div" />
 						<h3 class="content-title">Topics</h3>
 						<label for="topics">Number of Test Topics: </label>
-						<input name="topics" class="input-counter" max="10" min="1" type="number">
+						<input name="topics" class="input-counter" max="10" min="1" type="number" value="1"> <button id="placebo">Set</button>
+						<hr class="cb-div soft-div" />
+						<div id="topic-info">
+							<table id="topic-table">
+								<tr>
+									<th class="table-row" id="topic-name">Topic</td>
+									<th class="table-row" id="topic-start">I want to start studying this topic on...</td>
+									<th class="table-row" id="topic-calc-style">Difficulty</td>
+								</tr>
+								<tr>
+									<td><input name="table-r1-topic" type="text" class="topic-row-text" placeholder="1"></td>
+									<td><input name="table-r1-date" type="date" class="topic-row-date"></td>
+									<!-- <td><input name="table-r1-style" type="range" class="topic-row-style" id="topic-row-style" min="1" max="5" value="1"></td> -->
+									<td><input name="table-r1-style" type="range" class="topic-row-style days" id="topic-row-style" min="1" max="5" value="1"></td>
+								</tr>
+							</table>
+						</div>
+						<hr class="cb-div" />
+						<button class="submit">Calculate</button>
 					</div>
 				</div>
 				<div class="right-wrap">
@@ -138,7 +158,7 @@
 				v1.0.0
 			</p>
 		</footer>
-		<script src="./scripts/themes.js"></script>
 		<script src="./scripts/schedule.js"></script>
+		<script src="./scripts/themes.js"></script>
 	</body>
 </html>
