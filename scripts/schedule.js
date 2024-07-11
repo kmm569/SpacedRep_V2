@@ -1,7 +1,7 @@
 // Element list
 let testDate = document.getElementsByName('testDate')[0]
-let calcType = document.querySelector('#calcType')
-let calcTypeLabels = document.querySelectorAll('.styled-label span')
+// let calcType = document.querySelector('#calcType')
+let calcTypeLabels = document.querySelectorAll('[name="calcType"]')
 let numOfTopics = document.querySelector('input[type="number"]')
 let inputStyleRange = document.querySelectorAll('input[type="range"]')
 let topicTable = document.getElementById('topic-table')
@@ -33,16 +33,16 @@ testDate.addEventListener('change', () => {
 })
 
 calcTypeLabels.forEach((check) => {
-	check.addEventListener('click', (ev) => {
-		let parent = ev.target.parentElement
-		if (parent.querySelector('input').checked == false) {
-			parent.querySelector('input').checked = true
-			setCalcType(parent.querySelector('input').value)
-			currentType = parent.querySelector('input').value
+	check.addEventListener('change', (ev) => {
+	//   console.log("clicked radio button")
+		let input = ev.target
+		if (input.checked == true) {
+			setCalcType(input.value)
+			currentType = input.value
 			setRangeStyle()
 		}
 	})
-})
+  })
 
 const setRangeStyle = () => {
 	inputStyleRange.forEach((slider) => {
@@ -169,8 +169,8 @@ function calculateCurveForDiff(startDate, endDate, difficultyFactor) {
     const end = new Date(endDate).getTime();
 
     // Calculate the number of days between the two dates
-    const daysBetween = (end - start) / (1000 * 60 * 60 * 24);
-
+	const daysBetween = (end - start) / (1000 * 60 * 60 * 24);
+4
     // Determine the base number of points (minimum of 5) and adjust by difficulty factor
     const minPoints = 3;
     const maxPoints = Math.floor(daysBetween / 1.25);

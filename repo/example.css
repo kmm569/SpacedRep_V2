@@ -1,0 +1,53 @@
+/* Custom Radio Buttons */
+
+.styled-radio {
+  display: none;
+}
+
+.styled-label {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+  /* This is the element that senses the clicks */
+}
+
+.styled-label span {
+  position: relative;
+  line-height: 22px;
+}
+
+.styled-label span:before,
+.styled-label span:after {
+  content: "";
+}
+
+.styled-label span:before {
+  border: 1px solid #222021;
+  width: 20px;
+  height: 20px;
+  /* margin-right: 10px; */
+  display: inline-block;
+  vertical-align: top;
+}
+
+.styled-label span:after {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  transition: 300ms;
+  opacity: 0;
+}
+
+.styled-label input:checked + span:after {
+  opacity: 1;
+}
+
+.radio-label::after {
+  pointer-events: none;
+}
+
+.styled-label span:after {
+	background-color: red;
+}
