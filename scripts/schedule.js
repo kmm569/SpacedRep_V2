@@ -60,6 +60,7 @@ calcTypeLabels.forEach((check) => {
   })
 
 const setRangeStyle = () => {
+	inputStyleRange = document.querySelectorAll('input[type="range"]')
 	inputStyleRange.forEach((slider) => {
 		setSlider(slider)
 	})
@@ -85,6 +86,7 @@ function setSlider(slider) {
 
 	if (currentType == "diff") {
 		slider.setAttribute('max', '5')
+		slider.value = 1
 
 		if (slider.style.getPropertyValue('--sliderImage') == (null || "")) {
 			slider.style.setProperty('--sliderImage', `url("${sliderDiffIconUrls[slider.value - 1]}")`)
@@ -97,15 +99,20 @@ function setSlider(slider) {
 		let date
 		let max
 
-		if (!testDateValue) date = today
-		else date = testDateValue
 
-		if (date == today) max = 100
-		else {
-			let distance = date - today
-			max = distance / (1000 * 60 * 60 * 24)
-		}
+		max = 100 // NOT SETTING MAX PROPERLY
+		// if (!testDateValue)
+		// 	date = today
+		// else date = testDateValue
+
+		// if (date == today) max = 100
+		// else {
+		// 	let distance = date - today
+		// 	max = distance / (1000 * 60 * 60 * 24)
+		// }
 		slider.setAttribute('max', max)
+		slider.setAttribute('step', 5)
+		slider.value = 1
 
 		slider.style.setProperty('--thumbContent', '100')
 	}
@@ -147,11 +154,19 @@ function addRow() {
 	let styleInput = document.createElement('input')
 	// styleInput.setAttribute('name', `table-r${rowCount + 1}-date`)
 	styleInput.setAttribute('type', 'range')
-	styleInput.setAttribute('min', '1')
-	styleInput.setAttribute('max', '5')
-	styleInput.setAttribute('value', '1')
+	if (currentType == 'diff') {
+		styleInput.setAttribute('min', '1')
+		styleInput.setAttribute('max', '5')
+		styleInput.setAttribute('value', '1')
+		styleInput.classList.add('diff')
+	} else {
+		styleInput.setAttribute('min', '5')
+		styleInput.setAttribute('max', '100')
+		styleInput.setAttribute('step', '5')
+		styleInput.setAttribute('value', '50')
+		styleInput.classList.add('days')
+	}
 	styleInput.classList.add('topic-row-style')
-	styleInput.classList.add('diff')
 	// newStyleInput.append(styleInput)
 
 	let cells = [topicInput, dateInput, styleInput]
@@ -181,10 +196,15 @@ function setCalcType(type) {
 function calculateCurveForDiff(startDate, endDate, difficultyFactor) {
     // Parse the dates to get the time in milliseconds
     const start = new Date(startDate).getTime();
-    const end = new Date(endDate).getTime();
+	const end = new Date(endDate).getTime();
+	
+	console.log('Calculating Diff...')
 
     // Calculate the number of days between the two dates
-	const daysBetween = (end - start) / (1000 * 60 * 60 * 24);
+	const daysBetween = (end - start)/1000/24/60/60;
+	console.log(`Days Between: ${daysBetween}`)
+
+	console.log(`Difficulty: ${difficultyFactor}`)
 4
     // Determine the base number of points (minimum of 5) and adjust by difficulty factor
     const minPoints = 3;
@@ -219,10 +239,14 @@ function calculateCurveForDays(startDate, endDate, numberOfValues) {
     const end = new Date(endDate).getTime();
 	
     // Calculate the number of days between the two dates
-    const daysBetween = (end - start) / (1000 * 60 * 60 * 24);
+    const daysBetween = (end - start)/1000/24/60/60;
 	
     // Ensure the number of values is at least 2
-    numberOfValues = Math.max(2, (numberOfValues/100) * daysBetween);
+	numberOfValues = Math.max(2, Math.ceil((numberOfValues / 100) * daysBetween));
+	console.log(`Total Days: ${daysBetween}`)
+	console.log(`Percentage: ${numberOfValues}`)
+	console.log(`Percentage Study: ${(numberOfValues / 100) * daysBetween}`)
+	console.log(`num of days: ${numberOfValues}`)
 	
     // Constants for the exponential formula
     const a = 1; // Initial value
@@ -250,6 +274,7 @@ function setStyles(element, styles) {
 function calculate() {
 	let rows = topicTable.rows
 	clearCal()
+	testDateValue = new Date(testDate.value)
 
 	for (var i = 1; i < rows.length; i++) {
 		let cells = rows[i].cells
@@ -264,19 +289,19 @@ function calculate() {
 			} else {
 				topicCalc = cells[k].children[0].value
 			}
+		}
 
 			//Calculate dates
 			let results
-			if (currentType = 'diff') {
-				results = calculateCurveForDiff(topicStart, testDateValue, topicCalc)
+			if (currentType == 'diff') {
+				results = calculateCurveForDiff(topicStart, testDate.value, topicCalc)
 			} else {
-				results = calculateCurveForDays(topicStart, testDateValue, topicCalc)
+				results = calculateCurveForDays(topicStart, testDate.value, topicCalc)
 			}
 
 			for (var j in results) {
 				let dateHolder = topicStart
 				let nextDate = new Date(dateHolder.setDate(dateHolder.getDate() + results[j]))
-				console.log((nextDate- testDateValue)/1000/24/60/60)
 				if (nextDate < testDateValue) {
 					results[j] = nextDate
 				} else if(((nextDate - testDateValue)/1000/24/60/60) >= (4*1000*60*60*24)) {
@@ -288,6 +313,79 @@ function calculate() {
 			for (var date of results) {
 				addEvent(date, topicName)
 			}
+		}
+	}
+
+
+function sessionSave() {
+	let saveString = `${testDate.value}()${currentType}()${currentRows}()`;
+	let savedTopics = [];
+	const topicNames = document.getElementsByClassName("topic-row-text");
+	const topicDates = document.getElementsByClassName('topic-row-date')
+	const topicCalcStyle = document.getElementsByClassName("topic-row-style");
+
+	for (var k = 0; k < topicDates.length; k++) {
+		savedTopics.push(
+			`${topicNames[k].value}((${topicDates[k].value}((${topicCalcStyle[k].value}`
+		);
+	}
+
+	savedTopics = savedTopics.join("))");
+
+	saveString = saveString.concat(savedTopics);
+
+	sessionStorage.setItem(`currentSession`, saveString);
+}
+
+function loadSave(saveName) {
+	var saveData;
+	if (saveName == "currentSession-thisisauniquestring123") {
+		saveData = sessionStorage.getItem(`currentSession`);
+	} else {
+		saveData = localStorage.getItem(`${saveName}-saveFile`);
+	}
+	if (saveData == null) {
+		return;
+	}
+
+	console.log(saveData)
+	let data = saveData.split("()");
+	let testdate = data[0];
+	let calcType = data[1];
+	let totalRows = data[2];
+	let topics = data[3];
+
+	let topicData = topics.split("))");
+
+	testDate.value = testdate;
+	// yearButton.checked = useyear == 1 ? true : false;
+	numOfTopics.value = totalRows
+	currentRows.value = totalRows;
+
+	updateRows(totalRows);
+
+	if (totalRows == 0) {
+		return;
+	} else {
+		const topicNames = document.getElementsByClassName("topic-row-text");
+		const topicDates = document.getElementsByClassName('topic-row-date')
+		const topicDiff = document.getElementsByClassName("topic-row-style");
+
+		for (var row in topicData) {
+			let cells = topicData[row].split("((");
+
+			let name = cells[0];
+			let date = cells[1];
+			let difficulty = cells[2];
+
+			// let datevalues = date.split("-");
+			// let year = datevalues[0];
+			// let month = datevalues[1];
+			// let day = datevalues[2];
+
+			topicNames[row].value = name;
+			topicDates[row].value = date
+			topicDiff[row].value = difficulty;
 		}
 	}
 }
