@@ -1,3 +1,4 @@
+// let addEvent = require('./calendar')
 // Element list
 let testDate = document.getElementsByName('testDate')[0]
 // let calcType = document.querySelector('#calcType')
@@ -26,7 +27,21 @@ let sliderDiffIconUrls = [
 window.onload = () => {
 	inputStyleRange[0].style.setProperty('--sliderImage', `url("${sliderDiffIconUrls[inputStyleRange[0].value - 1]}")`)
 	inputStyleRange[0].style.setProperty('--thumbContent', inputStyleRange[0].value)
+	loadSave("currentSession-thisisauniquestring123");
 }
+
+document.body.addEventListener("change", (event) => {
+	if (
+		event.target !== testDate &&
+		event.target.type !== "number" &&
+		event.target.type !== "date" &&
+		event.target.type !== "text" &&
+		event.target.type !== "range"
+	) {
+		return;
+	}
+	sessionSave();
+});
 
 testDate.addEventListener('change', () => {
 	testDateValue = new Date(testDate.value)
@@ -207,7 +222,7 @@ function calculateCurveForDays(startDate, endDate, numberOfValues) {
     const daysBetween = (end - start) / (1000 * 60 * 60 * 24);
 	
     // Ensure the number of values is at least 2
-    numberOfValues = Math.max(2, numberOfValues);
+    numberOfValues = Math.max(2, (numberOfValues/100) * daysBetween);
 	
     // Constants for the exponential formula
     const a = 1; // Initial value
@@ -230,6 +245,51 @@ function setStyles(element, styles) {
     for(var s in styles) {
         element.style[s] = styles[s];
     }
+}
+
+function calculate() {
+	let rows = topicTable.rows
+	clearCal()
+
+	for (var i = 1; i < rows.length; i++) {
+		let cells = rows[i].cells
+		let topicName
+		let topicStart
+		let topicCalc
+		for (var k = 0; k < cells.length; k++) {
+			if (k == 0) {
+				topicName = cells[k].children[0].value == '' ? cells[k].children[0].placeholder : cells[k].children[0].value
+			} else if (k == 1) {
+				topicStart = new Date(cells[k].children[0].value)
+			} else {
+				topicCalc = cells[k].children[0].value
+			}
+
+			//Calculate dates
+			let results
+			if (currentType = 'diff') {
+				results = calculateCurveForDiff(topicStart, testDateValue, topicCalc)
+			} else {
+				results = calculateCurveForDays(topicStart, testDateValue, topicCalc)
+			}
+
+			for (var j in results) {
+				let dateHolder = topicStart
+				let nextDate = new Date(dateHolder.setDate(dateHolder.getDate() + results[j]))
+				console.log((nextDate- testDateValue)/1000/24/60/60)
+				if (nextDate < testDateValue) {
+					results[j] = nextDate
+				} else if(((nextDate - testDateValue)/1000/24/60/60) >= (4*1000*60*60*24)) {
+					results[j] = new Date(dateHolder.setDate(testDateValue.getDate()))
+					break;
+				}
+			}
+
+			for (var date of results) {
+				addEvent(date, topicName)
+			}
+		}
+	}
 }
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-= \\
