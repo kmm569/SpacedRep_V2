@@ -207,7 +207,7 @@ function calculateCurveForDiff(startDate, endDate, difficultyFactor) {
 	console.log(`Difficulty: ${difficultyFactor}`)
 4
     // Determine the base number of points (minimum of 5) and adjust by difficulty factor
-    const minPoints = 3;
+    const minPoints = Math.floor(daysBetween/3);
     const maxPoints = Math.floor(daysBetween / 1.25);
     const numberOfPoints = minPoints + Math.floor((maxPoints - minPoints) * (difficultyFactor) / 4);
 
@@ -241,12 +241,13 @@ function calculateCurveForDays(startDate, endDate, numberOfValues) {
     // Calculate the number of days between the two dates
     const daysBetween = (end - start)/1000/24/60/60;
 	
-    // Ensure the number of values is at least 2
-	numberOfValues = Math.max(2, Math.ceil((numberOfValues / 100) * daysBetween));
+	// Ensure the number of values is at least 2
+	console.log(`Range Slider Value: ${numberOfValues}`)
+	console.log(`Percentage Study: ${(numberOfValues / 100)}`)
+	numberOfValues = Math.max(Math.floor(daysBetween/3), Math.ceil((numberOfValues / 100) * daysBetween));
 	console.log(`Total Days: ${daysBetween}`)
-	console.log(`Percentage: ${numberOfValues}`)
-	console.log(`Percentage Study: ${(numberOfValues / 100) * daysBetween}`)
-	console.log(`num of days: ${numberOfValues}`)
+	console.log(`Calculated Days: ${numberOfValues}`)
+	console.log(`=-=-=-=-=-=-=-=-=-=`)
 	
     // Constants for the exponential formula
     const a = 1; // Initial value
@@ -348,7 +349,6 @@ function loadSave(saveName) {
 		return;
 	}
 
-	console.log(saveData)
 	let data = saveData.split("()");
 	let testdate = data[0];
 	let calcType = data[1];
@@ -388,6 +388,21 @@ function loadSave(saveName) {
 			topicDiff[row].value = difficulty;
 		}
 	}
+}
+
+function clearForm() {
+	testDate.value = ""
+	numOfTopics.value = 1
+	updateRows(numOfTopics.value)
+
+	const topicNames = document.getElementsByClassName("topic-row-text");
+	const topicDates = document.getElementsByClassName('topic-row-date')
+	const topicDiff = document.getElementsByClassName("topic-row-style");
+
+	topicNames[0].value = ''
+	topicDates[0].value = ''
+	topicDiff[0].value = currentType=="diff" ? 1 : 5
+	sessionSave()
 }
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-= \\
