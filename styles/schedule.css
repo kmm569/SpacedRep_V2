@@ -170,7 +170,8 @@
   }
 
   .days::-webkit-slider-thumb::before {
-    content: var(--thumbContent);
+    /* content: var(--thumbContent); */
+    content: "hi";
     color: white;
   }
   
@@ -188,3 +189,32 @@
     font-size: 18px;
     padding: 5px 10px 5px 10px;
   }
+
+  /* FLASHING WHEN BAD INPUT */
+
+  /* Define a CSS animation named "blink" */ 
+  @keyframes blink { 
+  
+    0%, 
+    100% { 
+        color: #ff0000; 
+        /* First color - red */ 
+    } 
+
+    50% { 
+        color: var(--darkest); 
+        /* Second color - black */ 
+    } 
+}
+
+/* Apply the "blink" animation to  
+        elements with class "blinking-effect" */ 
+        .blinking-effect { 
+          animation: blink 1s linear infinite; 
+          /* The animation will run indefinitely */ 
+      } 
+
+/* ERROR */
+#submit-break {
+  display:none;
+}

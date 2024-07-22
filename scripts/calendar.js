@@ -72,7 +72,7 @@ function addEvent(date, title) {
  
         events.push(
             {
-                id: eventId, date: date,
+                id: eventId, date: new Date(date.setDate(date.getDate() - 1)),
                 title: title
             }
         );

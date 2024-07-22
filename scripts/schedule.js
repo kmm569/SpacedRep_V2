@@ -6,6 +6,8 @@ let calcTypeLabels = document.querySelectorAll('[name="calcType"]')
 let numOfTopics = document.querySelector('input[type="number"]')
 let inputStyleRange = document.querySelectorAll('input[type="range"]')
 let topicTable = document.getElementById('topic-table')
+let submitBreak = document.getElementById('submit-break')
+let errorMessage = document.getElementById('submit-break-msg')
 
 let currentRows = 1
 let lastStyle = "diff"
@@ -28,6 +30,7 @@ window.onload = () => {
 	inputStyleRange[0].style.setProperty('--sliderImage', `url("${sliderDiffIconUrls[inputStyleRange[0].value - 1]}")`)
 	inputStyleRange[0].style.setProperty('--thumbContent', inputStyleRange[0].value)
 	loadSave("currentSession-thisisauniquestring123");
+	// console.log(calculateCurveForDaysTest("2024-07-17", "2024-08-09", 75));
 }
 
 document.body.addEventListener("change", (event) => {
@@ -41,6 +44,7 @@ document.body.addEventListener("change", (event) => {
 		return;
 	}
 	sessionSave();
+	inputStyleRange[0].style.setProperty('--thumbContent', inputStyleRange[0].value)
 });
 
 testDate.addEventListener('change', () => {
@@ -85,6 +89,7 @@ function setSlider(slider) {
 	console.log(currentType)
 
 	if (currentType == "diff") {
+		slider.setAttribute('min', '1')
 		slider.setAttribute('max', '5')
 		slider.value = 1
 
@@ -111,8 +116,9 @@ function setSlider(slider) {
 		// 	max = distance / (1000 * 60 * 60 * 24)
 		// }
 		slider.setAttribute('max', max)
-		slider.setAttribute('step', 5)
-		slider.value = 1
+		slider.setAttribute('min', '25')
+		slider.setAttribute('step', '25')
+		slider.value = 5
 
 		slider.style.setProperty('--thumbContent', '100')
 	}
@@ -160,9 +166,9 @@ function addRow() {
 		styleInput.setAttribute('value', '1')
 		styleInput.classList.add('diff')
 	} else {
-		styleInput.setAttribute('min', '5')
+		styleInput.setAttribute('min', '25')
 		styleInput.setAttribute('max', '100')
-		styleInput.setAttribute('step', '5')
+		styleInput.setAttribute('step', '25')
 		styleInput.setAttribute('value', '50')
 		styleInput.classList.add('days')
 	}
@@ -277,6 +283,16 @@ function calculate() {
 	clearCal()
 	testDateValue = new Date(testDate.value)
 
+	if (testDateValue == 'Invalid Date') {
+		console.log('no test date')
+		testDate.classList.add('blinking-effect')
+		submitBreak.style.display = 'block'
+		errorMessage.innerText = errorMessage.innerText + (errorMessage.innerText != '' ? '/n' : '') + 'Please enter a Test Date above.'
+	} else {
+		testDate.classList.remove('blinking-effect')
+		submitBreak.style.display = 'none'
+	}
+
 	for (var i = 1; i < rows.length; i++) {
 		let cells = rows[i].cells
 		let topicName
@@ -299,17 +315,20 @@ function calculate() {
 			} else {
 				results = calculateCurveForDays(topicStart, testDate.value, topicCalc)
 			}
-
+		// console.log(JSON.stringify(results, null, 2))
+		
 			for (var j in results) {
 				let dateHolder = topicStart
-				let nextDate = new Date(dateHolder.setDate(dateHolder.getDate() + results[j]))
+				let nextDate = new Date(dateHolder.setDate(dateHolder.getDate() + (results[j] + 1)))
+
 				if (nextDate < testDateValue) {
 					results[j] = nextDate
-				} else if(((nextDate - testDateValue)/1000/24/60/60) >= (4*1000*60*60*24)) {
-					results[j] = new Date(dateHolder.setDate(testDateValue.getDate()))
+				} else if(((nextDate - testDateValue)/(1000*24*60*60)) >= (4*1000*60*60*24)) {
+					results[j] = new Date(dateHolder.setDate(testDateValue.getDate())) // Dates broken
 					break;
 				}
 			}
+			// console.log(JSON.stringify(results, null, 2))
 
 			for (var date of results) {
 				addEvent(date, topicName)
@@ -431,3 +450,42 @@ function clearForm() {
 //         });
 //     });
 // }
+
+function calculateCurveForDaysTest(startDate, endDate, percentage) {
+    // Parse the dates to get the time in milliseconds
+    const start = new Date(startDate).getTime();
+    const end = new Date(endDate).getTime();
+	
+    // Calculate the number of days between the two dates
+	const daysBetween = (end - start) / (1000 * 60 * 60 * 24);
+	console.log(daysBetween)
+	
+    // Ensure the percentage is between 1 and 100
+	percentage = Math.min(Math.max(percentage, 1), 100);
+	console.log(percentage)
+	
+    // Calculate the number of values to generate based on the percentage
+	const numberOfValues = Math.ceil((percentage / 100) * daysBetween);
+	console.log( numberOfValues )
+	
+    // Constants for the exponential formula
+    const a = 1; // Initial value
+    const b = Math.pow(daysBetween, 1 / (numberOfValues - 1)); // Base of the exponential
+
+    // Generate the exponential curve values
+    const exponentialValues = new Set();
+    let i = 0;
+    while (exponentialValues.size < numberOfValues && i < numberOfValues) {
+        const x = i;
+        const y = a * Math.pow(b, x);
+        const roundedY = Math.round(y);
+        // Ensure the value is within the range of daysBetween
+        if (roundedY <= daysBetween) {
+            exponentialValues.add(roundedY);
+        }
+        i++;
+    }
+	
+    // Convert Set to Array and return
+    return Array.from(exponentialValues);
+}
