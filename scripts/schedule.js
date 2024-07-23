@@ -43,6 +43,7 @@ document.body.addEventListener("change", (event) => {
 	) {
 		return;
 	}
+	let inputStyleRange = document.querySelectorAll('input[type="range"]')
 	sessionSave();
 	inputStyleRange[0].style.setProperty('--thumbContent', inputStyleRange[0].value)
 });
@@ -91,7 +92,7 @@ function setSlider(slider) {
 	if (currentType == "diff") {
 		slider.setAttribute('min', '1')
 		slider.setAttribute('max', '5')
-		slider.value = 1
+		slider.value = "1"
 
 		if (slider.style.getPropertyValue('--sliderImage') == (null || "")) {
 			slider.style.setProperty('--sliderImage', `url("${sliderDiffIconUrls[slider.value - 1]}")`)
@@ -105,7 +106,7 @@ function setSlider(slider) {
 		let max
 
 
-		max = 100 // NOT SETTING MAX PROPERLY
+		max = 80 // NOT SETTING MAX PROPERLY
 		// if (!testDateValue)
 		// 	date = today
 		// else date = testDateValue
@@ -116,9 +117,9 @@ function setSlider(slider) {
 		// 	max = distance / (1000 * 60 * 60 * 24)
 		// }
 		slider.setAttribute('max', max)
-		slider.setAttribute('min', '25')
-		slider.setAttribute('step', '25')
-		slider.value = 5
+		slider.setAttribute('min', '10')
+		slider.setAttribute('step', '10')
+		slider.value = "5"
 
 		slider.style.setProperty('--thumbContent', '100')
 	}
