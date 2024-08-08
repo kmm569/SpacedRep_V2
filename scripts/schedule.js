@@ -8,6 +8,10 @@ let inputStyleRange = document.querySelectorAll('input[type="range"]')
 let topicTable = document.getElementById('topic-table')
 let submitBreak = document.getElementById('submit-break')
 let errorMessage = document.getElementById('submit-break-msg')
+let exclusionDiv = document.getElementById('excludeDaysDiv')
+let exclusionTable = document.getElementById('exclusions')
+let exclusionSubmitButton = document.getElementById('submitExclusion')
+let exclusionBox = document.querySelectorAll('[name="excludeDays"]')
 
 let currentRows = 1
 let lastStyle = "diff"
@@ -23,6 +27,8 @@ let sliderDiffIconUrls = [
 	"https://img.icons8.com/?size=100&id=16102&format=png&color=000000"
 
 ]
+
+let exclusions = []
 
 
 // TRIGGERS =-=-=-=-=-=-=-=-=-=-= \\
@@ -52,6 +58,17 @@ testDate.addEventListener('change', () => {
 	testDateValue = new Date(testDate.value)
 })
 
+exclusionBox.forEach((check) => {
+	check.addEventListener('change', (ev) => {
+		let input = ev.target
+		if (input.checked == true) {
+			exclusionDiv.style.display = "block"
+		} else {
+			exclusionDiv.style.display = 'none'
+		}
+	})
+})
+
 calcTypeLabels.forEach((check) => {
 	check.addEventListener('change', (ev) => {
 	//   console.log("clicked radio button")
@@ -62,7 +79,9 @@ calcTypeLabels.forEach((check) => {
 			setRangeStyle()
 		}
 	})
-  })
+})
+  
+
 
 const setRangeStyle = () => {
 	inputStyleRange = document.querySelectorAll('input[type="range"]')
@@ -279,6 +298,64 @@ function setStyles(element, styles) {
     }
 }
 
+function addExclusion() {
+	let exclusionCount = exclusionTable.rows.length
+	let date = new Date(exclusionTable.rows[0].children[0].children[0].value + " 12:00 EST").toLocaleDateString()
+	var row = exclusionTable.insertRow(1)
+	var dateCell = row.insertCell(0)
+	var removeCell = row.insertCell(1)
+
+	dateCell.innerText = date
+	removeCell.innerHTML = `<button id="${exclusionCount+"-row"}" onclick="removeExcl(${exclusionCount})" class="removeExcl">-</button>`
+	
+	exclusions[exclusionCount] = new Date(exclusionTable.rows[0].children[0].children[0].value + " 19:00 EST")
+
+	exclusionTable.rows[0].children[0].children[0].value = ''
+	sortTable()
+	console.log(exclusions)
+}
+
+function removeExcl(pos) {
+	document.getElementById(pos + "-row").parentElement.parentElement.remove()
+	exclusions.splice(pos, 1)
+	console.log(exclusions)
+}
+
+function sortTable() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+	table = exclusionTable;
+	switching = true;
+	/*Make a loop that will continue until
+	no switching has been done:*/
+	while (switching) {
+	  //start by saying: no switching is done:
+	  switching = false;
+	  rows = table.rows;
+	  /*Loop through all table rows (except the
+	  first, which contains table headers):*/
+	  for (i = 1; i < (rows.length - 1); i++) {
+		//start by saying there should be no switching:
+		shouldSwitch = false;
+		/*Get the two elements you want to compare,
+		one from current row and one from the next:*/
+		x = rows[i].getElementsByTagName("TD")[0];
+		y = rows[i + 1].getElementsByTagName("TD")[0];
+		//check if the two rows should switch place:
+		if (new Date(x.innerHTML) > new Date(y.innerHTML)) {
+		  //if so, mark as a switch and break the loop:
+		  shouldSwitch = true;
+		  break;
+		}
+	  }
+	  if (shouldSwitch) {
+		/*If a switch has been marked, make the switch
+		and mark that a switch has been done:*/
+		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		switching = true;
+	  }
+	}
+  }
+
 function calculate() {
 	let rows = topicTable.rows
 	clearCal()
@@ -294,11 +371,13 @@ function calculate() {
 		submitBreak.style.display = 'none'
 	}
 
+	let listStrings = []
 	for (var i = 1; i < rows.length; i++) {
 		let cells = rows[i].cells
 		let topicName
 		let topicStart
 		let topicCalc
+		let studyDateList = []
 		for (var k = 0; k < cells.length; k++) {
 			if (k == 0) {
 				topicName = cells[k].children[0].value == '' ? cells[k].children[0].placeholder : cells[k].children[0].value
@@ -318,24 +397,63 @@ function calculate() {
 			}
 		// console.log(JSON.stringify(results, null, 2))
 		
-			for (var j in results) {
+		var done = 'no'
+		var removeCount = 0
+		for (var j in results) {
 				let dateHolder = topicStart
-				let nextDate = new Date(dateHolder.setDate(dateHolder.getDate() + (results[j] + 1)))
+				let nextDate = new Date(dateHolder.setDate(dateHolder.getDate() + (results[j]) + 1))
 
+			console.log(nextDate)
+			if (done == 'yes') {
+				console.log('--DONE = YES--')
+				removeCount++
+			} else {
 				if (nextDate < testDateValue) {
+					console.log('date is less')
 					results[j] = nextDate
-				} else if(((nextDate - testDateValue)/(1000*24*60*60)) >= (4*1000*60*60*24)) {
-					results[j] = new Date(dateHolder.setDate(testDateValue.getDate())) // Dates broken
-					break;
+				} else if (((nextDate - testDateValue) / (1000 * 24 * 60 * 60)) >= 5) {
+					console.log('--RESULT MORE--\nREPLACE WITH TEST - 1')
+					results[j] = new Date(dateHolder.setDate(testDateValue.getDate()))
+					done = 'yes';
+				} else {
+					removeCount++
+					done = 'yes'
 				}
 			}
-			// console.log(JSON.stringify(results, null, 2))
-
-			for (var date of results) {
-				addEvent(date, topicName)
-			}
 		}
+		
+		for (var l = 1; l <= removeCount; l++) {
+			results.pop()
+		}
+		// console.log(JSON.stringify(results, null, 2))
+
+		let res = results.filter(resultDate => 
+			!exclusions.some(exclusionDate => resultDate.getTime() === exclusionDate.getTime())
+		);
+		const removed = results.filter(resultDate => 
+			exclusions.some(exclusionDate => resultDate.getTime() === exclusionDate.getTime())
+		);
+
+		for (var rem of removed) {
+			let holder = new Date('1-1-24')
+			let newDate = new Date(rem.setDate(rem.getDate() + 1))
+			res.push(newDate)
+		}
+
+		res = res.sort((a, b) => a.getTime() - b.getTime());
+
+		for (var date of res) {
+				studyDateList.push(new Date(date).toLocaleDateString())
+				addEvent(date, topicName)
+		}
+		listStrings.push(`<h3 class="resultTopic">${topicName}</h3><p>${studyDateList.join(`<br>`)}</p>`)
 	}
+	let finalResultList = listStrings.join(`\n`)
+	let resultList = document.getElementById('resultList')
+	let placeDiv = document.getElementById('placeResults')
+	placeDiv.innerHTML = finalResultList
+	resultList.style.display = 'block'
+}
 
 
 function sessionSave() {

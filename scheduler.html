@@ -122,7 +122,28 @@
 						<div id="submit-break">
 							<p id="submit-break-msg" class="blinking-effect"></p>
 							<hr class="cb-div">
-						</div>						
+						</div>
+						<label class="styled-label">
+							<label class="radio-label" for="excludeDays">Exclude Days</label>
+							<br />
+							<input
+								class="styled-radio"
+								type="checkbox"
+								name="excludeDays"
+								value="exclude"
+							/>
+							<span></span>
+						</label>
+						<p class="note">Note: Exclusion dates do not currently autosave</p>
+						<div id="excludeDaysDiv">
+							<table id="exclusions">
+								<tr>
+									<th><input name="table-r1-date" type="date" class="exclusion-row-date" id="exclusionDate"></th>
+									<th><button class="submit" id="submitExclusion" onclick="addExclusion()">Add</button></th>
+								</tr>
+							</table>
+						</div>
+						<hr class="cb-div">
 						<button class="submit" onclick="calculate()">Calculate</button>
 						<button class="submit" onclick="clearForm()">Clear</button>
 					</div>
@@ -143,8 +164,8 @@
 							<p>
 								<ol>
 									<li>Better "study Days" description</li>
-									<li>Study date results as list</li>
-									<li>Add "off-limit" dates to prevent generating study dates on days you are unavailable</li>
+									<li><s>Study date results as list</s></li>
+									<li><s>Add "off-limit" dates to prevent generating study dates on days you are unavailable</s></li>
 									<li>Export study days to PDF</li>
 									<li>Export study days to external calendar</li>
 								</ol>
@@ -229,6 +250,12 @@
 							</div>
 						</div>
 						<button id="clear" onclick="clearCal()">Clear</button>
+					</div>
+					<div class="content-box wider" id="resultList">
+						<h3>Results</h3>
+						<div id="placeResults">
+
+						</div>
 					</div>
 				</div>
 			</div>

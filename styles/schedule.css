@@ -1,3 +1,7 @@
+.note {
+  font-size: 12px;
+}
+
 .left-wrap {
     width: 50vw;
   }
@@ -100,7 +104,7 @@
   }
   
   .topic-row-date {
-    width: 60% !important;
+    width: 90% !important;
   }
 
   /* =-=-=-=-=-=-=-=-= */
@@ -214,7 +218,44 @@
           /* The animation will run indefinitely */ 
       } 
 
+
+  #exclusions tr th:nth-child(2) {
+    width: 50%;
+    /* background-color: #ff0000; */
+}
+
+#exclusions tr th:nth-child(1) {
+  width: 50%;
+  /* background-color:aqua; */
+}
+
+#exclusionDate {
+  width: max-content !important;
+}
+
+#exclusions {
+  width: 30%;
+  /* background-color: bisque; */
+}
+
+#submitExclusion {
+  padding: 3px 10px 3px 10px;
+  font-size: 16px;
+}
+
+#excludeDaysDiv {
+  display: none;
+}
+
 /* ERROR */
 #submit-break {
   display:none;
+}
+
+#resultList {
+  display: none;
+}
+
+.resultListBullets {
+  list-style: none;
 }

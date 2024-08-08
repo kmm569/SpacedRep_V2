@@ -69,10 +69,10 @@ function addEvent(date, title) {
     if (date && title) {
         // Create a unique event ID
         let eventId = eventIdCounter++;
- 
+        console.log(date)
         events.push(
             {
-                id: eventId, date: new Date(date.setDate(date.getDate() - 1)),
+                id: eventId, date: new Date(date.setDate(date.getDate())),
                 title: title
             }
         );
@@ -221,11 +221,13 @@ function createEventTooltip(date, month, year) {
     let tooltip = document.createElement("div");
     tooltip.className = "event-tooltip";
     let eventsOnDate = getEventsOnDate(date, month, year);
+    var insertedTopics = []
     for (let i = 0; i < eventsOnDate.length; i++) {
         let event = eventsOnDate[i];
         let eventDate = new Date(event.date);
-        let eventText = `<strong>${event.title}</strong> - 
-            ${eventDate.toLocaleDateString()}`;
+        insertedTopics.push(event.title)
+        let eventText = `<strong>Topics</strong>: 
+            ${insertedTopics.join('\n')}`;
         let eventElement = document.createElement("p");
         eventElement.innerHTML = eventText;
         tooltip.appendChild(eventElement);
