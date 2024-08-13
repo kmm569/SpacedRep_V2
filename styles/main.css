@@ -50,6 +50,7 @@ h1 {
   top: 5px;
   right: 25%;
   display: inline;
+  /* text-wrap: pretty; */
 }
 
 .nav-links {
@@ -119,17 +120,29 @@ ol li a img {
 #themeSelect {
   border-style: solid;
   border-radius: 5px;
+  font-size: 18pt;
+}
+
+input, .input {
+  border-width: 1px;
+  border-radius: 10px;
+  padding: 2px;
+  text-align: center;
 }
 
 .popupBox {
   border-radius: 10px;
   text-align: center;
-  padding: 10px;
+  padding: 8px;
+  width: 15%;
+  height: 25%;
 }
 
 #themePopup p {
   text-decoration: solid;
-  text-decoration-line: underline;
+  font-weight: bold;
+  /* text-decoration-line: underline; */
+  font-size: 28pt;
 }
 
 footer {

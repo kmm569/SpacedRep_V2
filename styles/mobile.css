@@ -1,0 +1,13 @@
+@media (max-width: 950px) {
+	#menuBar {
+		/* position: relative; */
+		/* left: 2px; */
+		text-align: left;
+		width: 100%;
+	}
+
+	h1 {
+		position: relative;
+		align-self: auto;
+	}
+}

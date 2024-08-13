@@ -30,6 +30,32 @@ let sliderDiffIconUrls = [
 
 let exclusions = []
 
+const studyDayHover = document.getElementById('studyDayHover');
+const studyDayPopup = document.getElementById('studyDayTooltip');
+
+const difficultyHover = document.getElementById('difficultyHover');
+const difficultyPopup = document.getElementById('difficultyTooltip');
+
+studyDayHover.addEventListener('mouseenter',
+	() => {
+		studyDayPopup.style.display = 'block';
+	});
+
+studyDayHover.addEventListener('mouseleave',
+	() => {
+		studyDayPopup.style.display = 'none';
+	});
+
+difficultyHover.addEventListener('mouseenter',
+	() => {
+		difficultyPopup.style.display = 'block';
+	});
+
+difficultyHover.addEventListener('mouseleave',
+	() => {
+		difficultyPopup.style.display = 'none';
+	});
+
 
 // TRIGGERS =-=-=-=-=-=-=-=-=-=-= \\
 window.onload = () => {

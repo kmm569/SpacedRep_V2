@@ -30,6 +30,7 @@
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 		/>
 		<link href="./styles/main.css" rel="stylesheet" type="text/css" />
+		<link href="./styles/mobile.css" rel="stylesheet" type="text/css" />
 		<link href="./styles/schedule.css" rel="stylesheet" type="text/css" />
 		<link href="./styles/calendar.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" id="themeStyle" />
@@ -75,7 +76,7 @@
 						<hr class="cb-div" />
 						<h3 class="content-title">Calculation Style</h3>
 						<label class="styled-label">
-							<label class="radio-label" for="calcType">Difficulty</label>
+							<div id="difficultyHover"><label class="radio-label" for="calcType">Difficulty</label></div>
 							<br />
 							<input
 								class="styled-radio"
@@ -86,9 +87,8 @@
 							/>
 							<span></span>
 						</label>
-
 						<label class="styled-label">
-							<label class="radio-label" for="calcType">Study Days</label>
+							<div id="studyDayHover"><label class="radio-label" for="calcType">Study Frequency</label></div>
 							<br />
 							<input
 								class="styled-radio"
@@ -98,6 +98,16 @@
 							/>
 							<span></span>
 						</label>
+						<div id="studyDayTooltip">
+							<p>
+								Ex. 24 Days until test, I want to study 60% of that time
+							</p>
+						</div>
+						<div id="difficultyTooltip">
+							<p>
+								Ex. On a scale of 1 to 5, this topic's difficulty is 3/5
+							</p>
+						</div>
 						<hr class="cb-div" />
 						<h3 class="content-title">Topics</h3>
 						<label for="topics">Number of Test Topics: </label>
@@ -252,7 +262,6 @@
 						<button id="clear" onclick="clearCal()">Clear</button>
 					</div>
 					<div class="content-box wider" id="resultList">
-						<h3>Results</h3>
 						<div id="placeResults">
 
 						</div>

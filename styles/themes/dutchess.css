@@ -134,3 +134,8 @@ button:hover {
 .event-marker::after {
     background-color: var(--middle);
 }
+
+.table-calendar td,
+.table-calendar th {
+    border: 1px solid var(--darker);
+}

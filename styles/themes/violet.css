@@ -86,3 +86,53 @@ button {
 	  background-color: var(--darker);
 	  cursor: pointer;
   }
+
+  .days {
+	background-color: var(--lightest);
+}
+
+.days::-webkit-slider-thumb {
+	background-color: var(--middle);
+}
+
+
+/* CALENDAR STYLING */
+
+.date-picker:hover {
+    background-color: var(--middle);
+    color: var(--lightest);	
+}
+
+/* Day-specific styling */
+/* .date-picker:nth-child(1) {
+    color: var(--middle);
+}
+ 
+.date-picker:nth-child(6) {
+    color: var(--middle);
+} */
+
+.date-picker.selected {
+    background-color: var(--lightest);
+    font-weight: bold;
+    outline: 1px dashed var(--middle);
+}
+
+.date-picker.selected:hover {
+    color: var(--middle)
+}
+
+.button-container-calendar button {
+    background: var(--middle);
+    color: #fff;
+    border: 1px solid var(--middle);
+}
+
+.event-marker::after {
+    background-color: var(--darkest);
+}
+
+.table-calendar td,
+.table-calendar th {
+    border: 1px solid var(--darker);
+}

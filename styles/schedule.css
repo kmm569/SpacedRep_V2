@@ -14,6 +14,44 @@
     width: 95%;
   }
 
+  #studyDayHover {
+    display: inline-block;
+    position: relative;
+  }
+  
+  #studyDayTooltip {
+    display: none;
+    position: relative;
+    background-color: #555555ad;
+    color: #ffffff;
+    border-radius: 5px;
+    width: max-content;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 0 auto 0 auto;
+  }
+
+  #difficultyHover {
+    display: inline-block;
+    position: relative;
+  }
+  
+  #difficultyTooltip {
+    display: none;
+    position: relative;
+    background-color: #555555ad;
+    color: #fff;
+    border-radius: 5px;
+    width: max-content;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 0 auto 0 auto;
+  }
+
   /* =-=-=-=-=-=-=-=-=-=-=- */
 /* Custom Radio Buttons */
 
@@ -108,13 +146,6 @@
   }
 
   /* =-=-=-=-=-=-=-=-= */
-  
-  input, .input {
-    border-width: 1px;
-    border-radius: 10px;
-    padding: 2px;
-    text-align: center;
-  }
   
   /* DIFFICULTY SLIDER */
   .diff {
