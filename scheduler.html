@@ -6,7 +6,7 @@
 			async
 			src="https://www.googletagmanager.com/gtag/js?id=G-B9QX7GQW2E"
 		></script>
-		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
 		<script
 			id="MathJax-script"
 			async
@@ -87,7 +87,7 @@
 							/>
 							<span></span>
 						</label>
-						<label class="styled-label">
+						<!-- <label class="styled-label">
 							<div id="studyDayHover"><label class="radio-label" for="calcType">Study Frequency</label></div>
 							<br />
 							<input
@@ -97,7 +97,7 @@
 								value="days"
 							/>
 							<span></span>
-						</label>
+						</label> -->
 						<div id="studyDayTooltip">
 							<p>
 								Ex. 24 Days until test, I want to study 60% of that time
@@ -116,11 +116,13 @@
 						<div id="topic-info">
 							<table id="topic-table">
 								<tr>
-									<th class="table-row" id="topic-name">Topic</td>
-									<th class="table-row" id="topic-start">I want to start studying this topic on...</td>
-									<th class="table-row" id="topic-calc-style">Difficulty</td>
+									<th class="table-row" id="topic-color">Color</th>
+									<th class="table-row" id="topic-name">Topic</th>
+									<th class="table-row" id="topic-start">I want to start studying this topic on...</th>
+									<th class="table-row" id="topic-calc-style">Difficulty</th>
 								</tr>
 								<tr>
+									<td><input name="table-r1-color" type="color" class="topic-row-color"></td>
 									<td><input name="table-r1-topic" type="text" class="topic-row-text" placeholder="1"></td>
 									<td><input name="table-r1-date" type="date" class="topic-row-date"></td>
 									<!-- <td><input name="table-r1-style" type="range" class="topic-row-style" id="topic-row-style" min="1" max="5" value="1"></td> -->
@@ -158,22 +160,23 @@
 						<button class="submit" onclick="clearForm()">Clear</button>
 					</div>
 						<div class="content-box wider">
-							<div class="left-wrap">
+							<div class="left-wrap" id="notes">
 							<h2>Broken Things</h2>
 							<p>
 								<ol>
 									<li>Calculations inconsistent</li>
-									<li>Switching between Difficulty and Study Days</li>
+									<li><s>Switching between Difficulty and Study Days</s></li>
 									<li><s>Study Days value scale</s></li>
 									<li>Loading save data not working for range slider</li>
 									<li>Theme button doesnt work on calc page</li>
-									<li>"Things to come" list overflowing out of box</li>
+									<li><s>"Things to come" list overflowing out of box</s></li>
+									<li>Get color to show up in calendar</li>
 								</ol>
 							</p>
 							<h2>Things to come</h2>
 							<p>
 								<ol>
-									<li>Better "study Days" description</li>
+									<li><s>Better "study Days" description</s></li>
 									<li><s>Study date results as list</s></li>
 									<li><s>Add "off-limit" dates to prevent generating study dates on days you are unavailable</s></li>
 									<li>Export study days to PDF</li>

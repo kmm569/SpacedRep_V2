@@ -12,6 +12,7 @@ let exclusionDiv = document.getElementById('excludeDaysDiv')
 let exclusionTable = document.getElementById('exclusions')
 let exclusionSubmitButton = document.getElementById('submitExclusion')
 let exclusionBox = document.querySelectorAll('[name="excludeDays"]')
+let firstColor = document.querySelectorAll('.topic-row-color')[0]
 
 let currentRows = 1
 let lastStyle = "diff"
@@ -20,31 +21,30 @@ let testDateValue = ""
 let today = new Date()
 
 let sliderDiffIconUrls = [
-	"https://img.icons8.com/?size=100&id=-M67kodTvLgh&format=png&color=000000",
-	"https://img.icons8.com/?size=100&id=16038&format=png&color=000000",
-	"https://img.icons8.com/?size=100&id=16087&format=png&color=000000",
-	"https://img.icons8.com/?size=100&id=22063&format=png&color=000000",
-	"https://img.icons8.com/?size=100&id=16102&format=png&color=000000"
-
+	'../images/rating/Ver3/1.webp',
+	'../images/rating/Ver3/2.webp',
+	'../images/rating/Ver3/3.webp',
+	'../images/rating/Ver3/4.webp',
+	'../images/rating/Ver3/5.webp'
 ]
 
 let exclusions = []
 
-const studyDayHover = document.getElementById('studyDayHover');
-const studyDayPopup = document.getElementById('studyDayTooltip');
+// const studyDayHover = document.getElementById('studyDayHover');
+// const studyDayPopup = document.getElementById('studyDayTooltip');
 
 const difficultyHover = document.getElementById('difficultyHover');
 const difficultyPopup = document.getElementById('difficultyTooltip');
 
-studyDayHover.addEventListener('mouseenter',
-	() => {
-		studyDayPopup.style.display = 'block';
-	});
+// studyDayHover.addEventListener('mouseenter',
+// 	() => {
+// 		studyDayPopup.style.display = 'block';
+// 	});
 
-studyDayHover.addEventListener('mouseleave',
-	() => {
-		studyDayPopup.style.display = 'none';
-	});
+// studyDayHover.addEventListener('mouseleave',
+// 	() => {
+// 		studyDayPopup.style.display = 'none';
+// 	});
 
 difficultyHover.addEventListener('mouseenter',
 	() => {
@@ -60,9 +60,11 @@ difficultyHover.addEventListener('mouseleave',
 // TRIGGERS =-=-=-=-=-=-=-=-=-=-= \\
 window.onload = () => {
 	inputStyleRange[0].style.setProperty('--sliderImage', `url("${sliderDiffIconUrls[inputStyleRange[0].value - 1]}")`)
-	inputStyleRange[0].style.setProperty('--thumbContent', inputStyleRange[0].value)
+	//inputStyleRange[0].style.setProperty('--thumbContent', inputStyleRange[0].value)
 	loadSave("currentSession-thisisauniquestring123");
 	// console.log(calculateCurveForDaysTest("2024-07-17", "2024-08-09", 75));
+	var style = getComputedStyle(document.documentElement)
+	firstColor.setAttribute('value', style.getPropertyValue('--middle'))
 }
 
 document.body.addEventListener("change", (event) => {
@@ -119,6 +121,7 @@ const setRangeStyle = () => {
 setRangeStyle()
 
 numOfTopics.addEventListener("change", () => {
+	console.log(numOfTopics.value === Number(numOfTopics.value))
 	updateRows(numOfTopics.value);
 });
 
@@ -171,11 +174,15 @@ function setSlider(slider) {
 }
 
 const updateRows = (newRowCount) => {
+	newRowCount = Number(newRowCount)
+	currentRows = Number(currentRows)
 	if (newRowCount > currentRows) {
+		console.log("greater")
 		for (let i = 0; i < newRowCount - currentRows; i++) {
 			addRow();
 		}
 	} else {
+		console.log("less")
 		for (let i = 0; i < currentRows - newRowCount; i++) {
 			deleteRow();
 		}
@@ -186,6 +193,12 @@ const updateRows = (newRowCount) => {
 function addRow() {
 	const rowCount = topicTable.rows.length
 	const newRow = topicTable.insertRow(rowCount)
+
+	let colorInput = document.createElement('input')
+	colorInput.setAttribute('type', 'color')
+	var style = getComputedStyle(document.documentElement)
+	colorInput.setAttribute('value', style.getPropertyValue('--middle'))
+	colorInput.classList.add('topic-row-color')
 
 	// let newTopicInput = document.createElement('td')
 	let topicInput = document.createElement('input')
@@ -221,7 +234,7 @@ function addRow() {
 	styleInput.classList.add('topic-row-style')
 	// newStyleInput.append(styleInput)
 
-	let cells = [topicInput, dateInput, styleInput]
+	let cells = [colorInput, topicInput, dateInput, styleInput]
 
 	setSlider(styleInput)
 
@@ -400,14 +413,17 @@ function calculate() {
 	let listStrings = []
 	for (var i = 1; i < rows.length; i++) {
 		let cells = rows[i].cells
+		let topicColor
 		let topicName
 		let topicStart
 		let topicCalc
 		let studyDateList = []
 		for (var k = 0; k < cells.length; k++) {
 			if (k == 0) {
-				topicName = cells[k].children[0].value == '' ? cells[k].children[0].placeholder : cells[k].children[0].value
+				topicColor = cells[k].children[0].value
 			} else if (k == 1) {
+				topicName = cells[k].children[0].value == '' ? cells[k].children[0].placeholder : cells[k].children[0].value
+			} else if (k == 2) {
 				topicStart = new Date(cells[k].children[0].value)
 			} else {
 				topicCalc = cells[k].children[0].value
@@ -485,6 +501,7 @@ function calculate() {
 function sessionSave() {
 	let saveString = `${testDate.value}()${currentType}()${currentRows}()`;
 	let savedTopics = [];
+	const topicColors = document.getElementsByClassName('topic-')
 	const topicNames = document.getElementsByClassName("topic-row-text");
 	const topicDates = document.getElementsByClassName('topic-row-date')
 	const topicCalcStyle = document.getElementsByClassName("topic-row-style");

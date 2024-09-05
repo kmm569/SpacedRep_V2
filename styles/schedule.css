@@ -4,6 +4,8 @@
 
 .left-wrap {
     width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .right-wrap {
@@ -126,7 +128,7 @@
   
   table {
     margin: 15px auto 0 auto;
-    width: 75%;
+    width: 80%;
   }
   
   #topic-table td input {
@@ -137,12 +139,42 @@
     width: 100%;
   }
   
-  #topic-table td {
+  /* #topic-table td {
     width: 33%;
+  } */
+  
+  .topic-color {
+    width: 10% !important;
+  }
+
+  .topic-row-color {
+    width: 70% !important;
+  }
+
+  #topic-start {
+    width: 25%;
+  }
+
+  input[type="color" i] {
+    border-radius: 50%;
+    inline-size: 30px;
+    block-size: 30px;
+    padding: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(153, 153, 153);
   }
   
-  .topic-row-date {
-    width: 90% !important;
+  input[type="color" i]::-webkit-color-swatch-wrapper {
+    padding: 1px;
+  }
+  
+  input[type="color" i]::-webkit-color-swatch {
+    border-radius: 50%;
+  }
+  
+  input[type="color" i]::-moz-color-swatch {
+    border-radius: 50%;
   }
 
   /* =-=-=-=-=-=-=-=-= */
@@ -154,9 +186,10 @@
     height: 30px;
     border-radius: 20px;
     background-image: linear-gradient(to right, green, yellow, red);
-    outline: none;
-    -webkit-transition: 0.2s;
-    transition: opacity 0.2s;
+    outline:0;
+    padding: 5px
+    /* -webkit-transition: 0.2s;
+    transition: opacity 0.2s; */
   }
   
   .diff::-webkit-slider-thumb {
@@ -289,4 +322,8 @@
 
 .resultListBullets {
   list-style: none;
+}
+
+#notes {
+  text-wrap:balance;
 }
