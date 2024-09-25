@@ -588,7 +588,7 @@ function clearForm() {
 	topicNames[0].value = ''
 	topicDates[0].value = ''
 	topicDiff[0].value = currentType == "diff" ? 1 : 5
-	topicCol[0].value = ''
+	topicCol[0].value = '#00000'
 	sessionSave()
 }
 
