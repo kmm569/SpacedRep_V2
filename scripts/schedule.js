@@ -501,14 +501,14 @@ function calculate() {
 function sessionSave() {
 	let saveString = `${testDate.value}()${currentType}()${currentRows}()`;
 	let savedTopics = [];
-	const topicColors = document.getElementsByClassName('topic-')
+	const topicColors = document.getElementsByClassName('topic-row-color')
 	const topicNames = document.getElementsByClassName("topic-row-text");
 	const topicDates = document.getElementsByClassName('topic-row-date')
 	const topicCalcStyle = document.getElementsByClassName("topic-row-style");
 
 	for (var k = 0; k < topicDates.length; k++) {
 		savedTopics.push(
-			`${topicNames[k].value}((${topicDates[k].value}((${topicCalcStyle[k].value}`
+			`${topicNames[k].value}((${topicDates[k].value}((${topicColors[k].value}))`
 		);
 	}
 
@@ -529,12 +529,12 @@ function loadSave(saveName) {
 	if (saveData == null) {
 		return;
 	}
+	console.log(saveData)
 
 	let data = saveData.split("()");
 	let testdate = data[0];
-	let calcType = data[1];
-	let totalRows = data[2];
-	let topics = data[3];
+	let totalRows = data[1];
+	let topics = data[2];
 
 	let topicData = topics.split("))");
 
@@ -551,6 +551,7 @@ function loadSave(saveName) {
 		const topicNames = document.getElementsByClassName("topic-row-text");
 		const topicDates = document.getElementsByClassName('topic-row-date')
 		const topicDiff = document.getElementsByClassName("topic-row-style");
+		const topicCol = document.getElementsByClassName("topic-row-color")
 
 		for (var row in topicData) {
 			let cells = topicData[row].split("((");
@@ -558,6 +559,7 @@ function loadSave(saveName) {
 			let name = cells[0];
 			let date = cells[1];
 			let difficulty = cells[2];
+			let color = cells[3]
 
 			// let datevalues = date.split("-");
 			// let year = datevalues[0];
@@ -567,6 +569,7 @@ function loadSave(saveName) {
 			topicNames[row].value = name;
 			topicDates[row].value = date
 			topicDiff[row].value = difficulty;
+			topicCol[row].value = color
 		}
 	}
 }

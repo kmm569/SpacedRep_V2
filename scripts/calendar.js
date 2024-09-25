@@ -61,7 +61,7 @@ showCalendar(currentMonth, currentYear);
 let eventIdCounter = 1;
  
 // Function to add events
-function addEvent(date, title) {
+function addEvent(date, title, color) {
     // let date = eventDateInput.value;
     // let title = eventTitleInput.value;
     // let description = eventDescriptionInput.value;
@@ -73,7 +73,8 @@ function addEvent(date, title) {
         events.push(
             {
                 id: eventId, date: new Date(date.setDate(date.getDate())),
-                title: title
+                title: title,
+                color: color
             }
         );
         showCalendar(currentMonth, currentYear);
@@ -218,6 +219,7 @@ function showCalendar(month, year) {
  
 // Function to create an event tooltip
 function createEventTooltip(date, month, year) {
+    let eventText = "<strong>Topics</strong>:<br>"
     let tooltip = document.createElement("div");
     tooltip.className = "event-tooltip";
     let eventsOnDate = getEventsOnDate(date, month, year);
@@ -225,13 +227,13 @@ function createEventTooltip(date, month, year) {
     for (let i = 0; i < eventsOnDate.length; i++) {
         let event = eventsOnDate[i];
         let eventDate = new Date(event.date);
-        insertedTopics.push(event.title)
-        let eventText = `<strong>Topics</strong>: 
-            ${insertedTopics.join('\n')}`;
+        let marker = createColor(event.color)
+        insertedTopics.push(`${marker} + event.title`)
+    }
+    eventText = eventText + `${insertedTopics.join('<br>')}`;
         let eventElement = document.createElement("p");
         eventElement.innerHTML = eventText;
         tooltip.appendChild(eventElement);
-    }
     return tooltip;
 }
  
@@ -263,4 +265,8 @@ showCalendar(currentMonth, currentYear);
 function clearCal() {
     events = []
     showCalendar(currentMonth, currentYear)
+}
+
+function createColor(color) {
+	return `<span style="color: ${color};">⦿</span>`
 }
