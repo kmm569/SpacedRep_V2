@@ -73,6 +73,7 @@ document.body.addEventListener("change", (event) => {
 		event.target.type !== "number" &&
 		event.target.type !== "date" &&
 		event.target.type !== "text" &&
+		event.target.type !== "color" &&
 		event.target.type !== "range"
 	) {
 		return;
@@ -413,36 +414,36 @@ function calculate() {
 	let listStrings = []
 	for (var i = 1; i < rows.length; i++) {
 		let cells = rows[i].cells
-		let topicColor
-		let topicName
-		let topicStart
-		let topicCalc
+		let topicColorx
+		let topicNamex
+		let topicStartx
+		let topicCalcx
 		let studyDateList = []
 		for (var k = 0; k < cells.length; k++) {
 			if (k == 0) {
-				topicColor = cells[k].children[0].value
+				topicColorx = cells[k].children[0].value
 			} else if (k == 1) {
-				topicName = cells[k].children[0].value == '' ? cells[k].children[0].placeholder : cells[k].children[0].value
+				topicNamex = cells[k].children[0].value == '' ? cells[k].children[0].placeholder : cells[k].children[0].value
 			} else if (k == 2) {
-				topicStart = new Date(cells[k].children[0].value)
+				topicStartx = new Date(cells[k].children[0].value)
 			} else {
-				topicCalc = cells[k].children[0].value
+				topicCalcx = cells[k].children[0].value
 			}
 		}
 
 			//Calculate dates
 			let results
 			if (currentType == 'diff') {
-				results = calculateCurveForDiff(topicStart, testDate.value, topicCalc)
+				results = calculateCurveForDiff(topicStartx, testDate.value, topicCalcx)
 			} else {
-				results = calculateCurveForDays(topicStart, testDate.value, topicCalc)
+				results = calculateCurveForDays(topicStartx, testDate.value, topicCalcx)
 			}
 		// console.log(JSON.stringify(results, null, 2))
 		
 		var done = 'no'
 		var removeCount = 0
 		for (var j in results) {
-				let dateHolder = topicStart
+				let dateHolder = topicStartx
 				let nextDate = new Date(dateHolder.setDate(dateHolder.getDate() + (results[j]) + 1))
 
 			console.log(nextDate)
@@ -486,9 +487,9 @@ function calculate() {
 
 		for (var date of res) {
 				studyDateList.push(new Date(date).toLocaleDateString())
-				addEvent(date, topicName)
+				addEvent(date, topicNamex, topicColorx)
 		}
-		listStrings.push(`<h3 class="resultTopic">${topicName}</h3><p>${studyDateList.join(`<br>`)}</p>`)
+		listStrings.push(`<h3 class="resultTopic">${topicNamex}</h3><p>${studyDateList.join(`<br>`)}</p>`)
 	}
 	let finalResultList = listStrings.join(`\n`)
 	let resultList = document.getElementById('resultList')
@@ -541,7 +542,7 @@ function loadSave(saveName) {
 	testDate.value = testdate;
 	// yearButton.checked = useyear == 1 ? true : false;
 	numOfTopics.value = totalRows
-	currentRows.value = totalRows;
+	currentRows = totalRows;
 
 	updateRows(totalRows);
 
@@ -558,8 +559,8 @@ function loadSave(saveName) {
 
 			let name = cells[0];
 			let date = cells[1];
-			let difficulty = cells[2];
-			let color = cells[3]
+			let color = cells[2]
+			// let difficulty = cells[3];
 
 			// let datevalues = date.split("-");
 			// let year = datevalues[0];
@@ -568,7 +569,7 @@ function loadSave(saveName) {
 
 			topicNames[row].value = name;
 			topicDates[row].value = date
-			topicDiff[row].value = difficulty;
+			// topicDiff[row].value = difficulty;
 			topicCol[row].value = color
 		}
 	}
@@ -582,10 +583,12 @@ function clearForm() {
 	const topicNames = document.getElementsByClassName("topic-row-text");
 	const topicDates = document.getElementsByClassName('topic-row-date')
 	const topicDiff = document.getElementsByClassName("topic-row-style");
+	const topicCol = document.getElementsByClassName("topic-row-color")
 
 	topicNames[0].value = ''
 	topicDates[0].value = ''
-	topicDiff[0].value = currentType=="diff" ? 1 : 5
+	topicDiff[0].value = currentType == "diff" ? 1 : 5
+	topicCol[0].value = ''
 	sessionSave()
 }
 

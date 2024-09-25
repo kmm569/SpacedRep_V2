@@ -228,7 +228,7 @@ function createEventTooltip(date, month, year) {
         let event = eventsOnDate[i];
         let eventDate = new Date(event.date);
         let marker = createColor(event.color)
-        insertedTopics.push(`${marker} + event.title`)
+        insertedTopics.push(`<p>${marker} ${event.title}<p>`)
     }
     eventText = eventText + `${insertedTopics.join('<br>')}`;
         let eventElement = document.createElement("p");
@@ -268,5 +268,5 @@ function clearCal() {
 }
 
 function createColor(color) {
-	return `<span style="color: ${color};">⦿</span>`
+	return `<span style="color: ${color};font-size: 20px;">⦿</span>`
 }
